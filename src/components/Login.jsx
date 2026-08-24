@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     const dobPattern = /^\d{2}-\d{2}-\d{4}$/;
     if (!dobPattern.test(formData.dob)) {
       setError('DOB must be in DD-MM-YYYY format');
@@ -25,7 +25,7 @@ const Login = ({ onLogin }) => {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       // Ensure Supabase environment variables are set
       if (!import.meta.env.VITE_SUPABASE_URL) {
@@ -60,39 +60,39 @@ const Login = ({ onLogin }) => {
       <div className="form-card">
         <h2 className="form-title">Welcome Back</h2>
         <p className="form-subtitle">Login with your Mahotsav ID and DOB.</p>
-        
+
         {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          
+
           <div className="form-group">
-            <input 
-              type="text" 
-              name="mahotsav_id" 
-              value={formData.mahotsav_id} 
-              onChange={handleInputChange} 
-              className="form-input" 
-              placeholder="Mahotsav ID*" 
-              required 
+            <input
+              type="text"
+              name="mahotsav_id"
+              value={formData.mahotsav_id}
+              onChange={handleInputChange}
+              className="form-input"
+              placeholder="Mahotsav ID*"
+              required
             />
           </div>
 
           <div className="form-group" style={{ marginBottom: '2rem' }}>
-            <input 
-              type="text" 
-              name="dob" 
-              value={formData.dob} 
-              onChange={handleInputChange} 
-              className="form-input" 
-              placeholder="DOB (DD-MM-YYYY)*" 
-              pattern="\d{2}-\d{2}-\d{4}" 
-              title="Format: DD-MM-YYYY" 
-              required 
+            <input
+              type="text"
+              name="dob"
+              value={formData.dob}
+              onChange={handleInputChange}
+              className="form-input"
+              placeholder="DOB (DD-MM-YYYY)*"
+              pattern="\d{2}-\d{2}-\d{4}"
+              title="Format: DD-MM-YYYY"
+              required
             />
           </div>
 
           <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Logging in...' : 'Login'}
+            {isSubmitting ? 'Logging in' : 'Login'}
           </button>
         </form>
       </div>

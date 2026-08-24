@@ -7,7 +7,7 @@ const CreateAccount = ({ onLogin }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showGenderDropdown, setShowGenderDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     registration_number: '',
     name: '',
@@ -17,7 +17,7 @@ const CreateAccount = ({ onLogin }) => {
     dob: '',
     branch: ''
   });
-  
+
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,7 +45,7 @@ const CreateAccount = ({ onLogin }) => {
         setColleges([]);
         return;
       }
-      
+
       setLoading(true);
       try {
         const response = await fetch(`https://api.collegedb.in/v1/colleges/search?q=${encodeURIComponent(collegeQuery)}`, {
@@ -53,7 +53,7 @@ const CreateAccount = ({ onLogin }) => {
             'Authorization': `Bearer ${import.meta.env.VITE_COLLEGEDB_KEY}`
           }
         });
-        
+
         if (response.ok) {
           const data = await response.json();
           setColleges(data.results || []);
@@ -69,7 +69,7 @@ const CreateAccount = ({ onLogin }) => {
     const timeoutId = setTimeout(() => {
       fetchColleges();
     }, 300);
-    
+
     return () => clearTimeout(timeoutId);
   }, [collegeQuery]);
 
@@ -86,7 +86,7 @@ const CreateAccount = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     // Validate DOB format (DD-MM-YYYY)
     const dobPattern = /^\d{2}-\d{2}-\d{4}$/;
     if (!dobPattern.test(formData.dob)) {
@@ -100,7 +100,7 @@ const CreateAccount = ({ onLogin }) => {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       const payload = {
         ...formData,
@@ -130,11 +130,11 @@ const CreateAccount = ({ onLogin }) => {
       <div className="form-card">
         <h2 className="form-title">Create Account</h2>
         <p className="form-subtitle">Fill in the details below to create your account.</p>
-        
+
         {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          
+
           <div className="form-row">
             <div className="form-group">
               <input type="text" name="registration_number" value={formData.registration_number} onChange={handleInputChange} className="form-input" placeholder="Registration number*" required />
@@ -157,12 +157,12 @@ const CreateAccount = ({ onLogin }) => {
               <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="form-input" placeholder="Phone Number*" required />
             </div>
             <div className="form-group" style={{ position: 'relative' }} ref={genderDropdownRef}>
-              <div 
+              <div
                 className="form-input form-select"
-                style={{ 
-                  cursor: 'pointer', 
+                style={{
+                  cursor: 'pointer',
                   color: formData.gender ? '#333' : '#555',
-                  padding: '0.5rem 0' 
+                  padding: '0.5rem 0'
                 }}
                 onClick={() => setShowGenderDropdown(!showGenderDropdown)}
               >
@@ -170,19 +170,19 @@ const CreateAccount = ({ onLogin }) => {
               </div>
               {showGenderDropdown && (
                 <div className="autocomplete-dropdown" style={{ zIndex: 20 }}>
-                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({...prev, gender: 'male'})); setShowGenderDropdown(false); }}>Male</div>
-                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({...prev, gender: 'female'})); setShowGenderDropdown(false); }}>Female</div>
-                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({...prev, gender: 'other'})); setShowGenderDropdown(false); }}>Other</div>
+                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({ ...prev, gender: 'male' })); setShowGenderDropdown(false); }}>Male</div>
+                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({ ...prev, gender: 'female' })); setShowGenderDropdown(false); }}>Female</div>
+                  <div className="autocomplete-item" onClick={() => { setFormData(prev => ({ ...prev, gender: 'other' })); setShowGenderDropdown(false); }}>Other</div>
                 </div>
               )}
             </div>
           </div>
 
           <div className="form-group" ref={dropdownRef}>
-            <input 
-              type="text" 
-              className="form-input" 
-              placeholder="College*" 
+            <input
+              type="text"
+              className="form-input"
+              placeholder="College*"
               required
               value={collegeQuery}
               onChange={(e) => {
@@ -197,8 +197,8 @@ const CreateAccount = ({ onLogin }) => {
                   <div className="autocomplete-item">Loading...</div>
                 ) : colleges.length > 0 ? (
                   colleges.map((college) => (
-                    <div 
-                      key={college.id} 
+                    <div
+                      key={college.id}
                       className="autocomplete-item"
                       onClick={() => handleSelectCollege(college.name)}
                     >
@@ -217,7 +217,7 @@ const CreateAccount = ({ onLogin }) => {
           </div>
 
           <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating...' : 'Create Account'}
+            {isSubmitting ? 'Creating' : 'Create Account'}
           </button>
         </form>
       </div>
