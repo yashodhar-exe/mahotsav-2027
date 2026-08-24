@@ -1,0 +1,223 @@
+@font-face {
+  font-family: 'Warren';
+  src: url('./assets/WARREN.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: #f8f5ec;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5vh;
+  /* adjust centering slightly */
+}
+
+.title {
+  font-family: 'Warren', serif;
+  font-size: 14vw;
+  line-height: 0.8;
+  margin: 0;
+  color: #000;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: 'Warren', serif;
+  font-size: 26vw;
+  line-height: 0.7;
+  margin: 0;
+  margin-top: 3vh;
+  color: #000;
+  font-weight: normal;
+  text-align: center;
+}
+
+/* Create Account Form Styles */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 2rem;
+}
+
+.form-card {
+  background-color: #f2efe9;
+  padding: 3rem;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.form-subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+.form-input {
+  border: none;
+  border-bottom: 1px solid #dcdcdc;
+  background-color: transparent;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #555;
+}
+
+.form-input:focus {
+  border-bottom-color: #888;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  background-size: 1em;
+  padding-right: 1.5em;
+}
+
+.form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-checkbox {
+  margin-top: 0.25rem;
+  accent-color: #333;
+  width: 1rem;
+  height: 1rem;
+}
+
+.form-checkbox-label {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.form-checkbox-label a {
+  color: #333;
+  text-decoration: underline;
+}
+
+.form-submit-btn {
+  background-color: #b5b1a9;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem;
+  width: 100%;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-submit-btn:hover {
+  background-color: #a39e96;
+}
+
+/* Autocomplete styles */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.autocomplete-item {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-item:hover {
+  background-color: #f8f5ec;
+}
