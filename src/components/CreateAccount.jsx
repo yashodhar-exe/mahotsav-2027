@@ -50,7 +50,7 @@ const CreateAccount = ({ onLogin }) => {
       try {
         const response = await fetch(`https://api.collegedb.in/v1/colleges/search?q=${encodeURIComponent(collegeQuery)}`, {
           headers: {
-            'Authorization': 'Bearer cdb_4d703ddf3e9228da7491f10ccc848dbc7b02853a0063563e'
+            'Authorization': `Bearer ${import.meta.env.VITE_COLLEGEDB_KEY}`
           }
         });
         
