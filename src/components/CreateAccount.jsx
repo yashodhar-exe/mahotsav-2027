@@ -115,7 +115,7 @@ const CreateAccount = ({ onLogin }) => {
 
       if (supabaseError) {
         if (supabaseError.message && supabaseError.message.includes('duplicate key value')) {
-          setError('An account with this registration number already exists.');
+          setError('Registration number already exists.');
         } else {
           setError(supabaseError.message || 'Failed to create account');
         }
