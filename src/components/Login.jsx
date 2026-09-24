@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, onSwitchToRegister, onClose }) => {
   const [formData, setFormData] = useState({
     mahotsav_id: '',
     dob: ''
@@ -56,45 +56,51 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-card">
-        <h2 className="form-title">Welcome Back</h2>
-        <p className="form-subtitle">Login with your Mahotsav ID and DOB.</p>
+    <div className="custom-modal-container">
+      <div className="custom-modal-card">
+        <button className="modal-close-btn" onClick={onClose}>✕</button>
+        <h2 className="custom-modal-title"><span>*</span> Welcome Back <span>*</span></h2>
 
         {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
 
-          <div className="form-group">
+          <div className="custom-form-group">
+            <label className="custom-label">MAHOTSAV ID</label>
             <input
               type="text"
               name="mahotsav_id"
               value={formData.mahotsav_id}
               onChange={handleInputChange}
-              className="form-input"
-              placeholder="Mahotsav ID*"
+              className="custom-input"
+              placeholder="e.g. MH27000001"
               required
             />
           </div>
 
-          <div className="form-group" style={{ marginBottom: '2rem' }}>
+          <div className="custom-form-group" style={{ marginBottom: '2rem' }}>
+            <label className="custom-label">DATE OF BIRTH</label>
             <input
               type="text"
               name="dob"
               value={formData.dob}
               onChange={handleInputChange}
-              className="form-input"
-              placeholder="DOB (DD-MM-YYYY)*"
+              className="custom-input"
+              placeholder="dd-mm-yyyy"
               pattern="\d{2}-\d{2}-\d{4}"
               title="Format: DD-MM-YYYY"
               required
             />
           </div>
 
-          <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Logging in' : 'Login'}
+          <button type="submit" className="custom-submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'LOGGING IN' : 'LOGIN'}
           </button>
         </form>
+        
+        <div className="modal-footer-text">
+          Not yet registered? <span className="modal-link" onClick={onSwitchToRegister}>Register</span>
+        </div>
       </div>
     </div>
   );

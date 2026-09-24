@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../supabaseClient';
 
-const CreateAccount = ({ onLogin }) => {
+const CreateAccount = ({ onLogin, onSwitchToLogin, onClose }) => {
   const [collegeQuery, setCollegeQuery] = useState('');
   const [colleges, setColleges] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -15,7 +15,9 @@ const CreateAccount = ({ onLogin }) => {
     phone: '',
     gender: '',
     dob: '',
-    branch: ''
+    branch: '',
+    district: '',
+    state: ''
   });
 
   const [error, setError] = useState('');
@@ -130,47 +132,48 @@ const CreateAccount = ({ onLogin }) => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-card">
-        <h2 className="form-title">Create Account</h2>
-        <p className="form-subtitle">Fill in the details below to create your account.</p>
+    <div className="custom-modal-container">
+      <div className="custom-modal-card register-modal-card">
+        <button className="modal-close-btn" onClick={onClose}>✕</button>
+        <h2 className="custom-modal-title"><span>*</span> Register for Mahotsav <span>*</span></h2>
 
         {error && <div style={{ color: 'red', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
 
-          <div className="form-row">
-            <div className="form-group">
-              <input type="text" name="registration_number" value={formData.registration_number} onChange={handleInputChange} className="form-input" placeholder="Registration number*" required />
-            </div>
-            <div className="form-group">
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="form-input" placeholder="Name*" required />
-            </div>
+          <div className="custom-form-group">
+            <label className="custom-label">FULL NAME</label>
+            <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="custom-input" placeholder="Enter full name" required />
           </div>
 
-          <div className="form-group">
-            <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form-input" placeholder="Email*" required />
+          <div className="custom-form-group">
+            <label className="custom-label">EMAIL</label>
+            <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="custom-input" placeholder="Enter email address" required />
           </div>
 
-          <div className="form-group">
-            <input type="text" name="dob" value={formData.dob} onChange={handleInputChange} className="form-input" placeholder="DOB (DD-MM-YYYY)*" pattern="\d{2}-\d{2}-\d{4}" title="Format: DD-MM-YYYY" required />
+          <div className="custom-form-group">
+            <label className="custom-label">REGISTRATION NUMBER / REG NO</label>
+            <input type="text" name="registration_number" value={formData.registration_number} onChange={handleInputChange} className="custom-input" placeholder="e.g. 221FA04001" required />
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="form-input" placeholder="Phone Number*" required />
+          <div className="custom-form-row">
+            <div className="custom-form-group">
+              <label className="custom-label">DATE OF BIRTH</label>
+              <input type="text" name="dob" value={formData.dob} onChange={handleInputChange} className="custom-input" placeholder="DD-MM-YYYY" pattern="\d{2}-\d{2}-\d{4}" title="Format: DD-MM-YYYY" required />
             </div>
-            <div className="form-group" style={{ position: 'relative' }} ref={genderDropdownRef}>
+            <div className="custom-form-group" style={{ position: 'relative' }} ref={genderDropdownRef}>
+              <label className="custom-label">GENDER</label>
               <div
-                className="form-input form-select"
+                className="custom-input form-select"
                 style={{
                   cursor: 'pointer',
-                  color: formData.gender ? '#333' : '#555',
-                  padding: '0.5rem 0'
+                  color: formData.gender ? '#fdf0d5' : '#a3a3a3',
+                  padding: '0.5rem 0',
+                  paddingLeft: '1rem'
                 }}
                 onClick={() => setShowGenderDropdown(!showGenderDropdown)}
               >
-                {formData.gender ? formData.gender.charAt(0).toUpperCase() + formData.gender.slice(1) : 'Gender*'}
+                {formData.gender ? formData.gender.charAt(0).toUpperCase() + formData.gender.slice(1) : 'Select Gender'}
               </div>
               {showGenderDropdown && (
                 <div className="autocomplete-dropdown" style={{ zIndex: 20 }}>
@@ -182,11 +185,12 @@ const CreateAccount = ({ onLogin }) => {
             </div>
           </div>
 
-          <div className="form-group" ref={dropdownRef}>
+          <div className="custom-form-group" ref={dropdownRef}>
+            <label className="custom-label">COLLEGE / INSTITUTION</label>
             <input
               type="text"
-              className="form-input"
-              placeholder="College*"
+              className="custom-input"
+              placeholder="Search college name..."
               required
               value={collegeQuery}
               onChange={(e) => {
@@ -216,14 +220,36 @@ const CreateAccount = ({ onLogin }) => {
             )}
           </div>
 
-          <div className="form-group" style={{ marginBottom: '2rem' }}>
-            <input type="text" name="branch" value={formData.branch} onChange={handleInputChange} className="form-input" placeholder="Branch*" required />
+          <div className="custom-form-row">
+            <div className="custom-form-group">
+              <label className="custom-label">DISTRICT</label>
+              <input type="text" name="district" value={formData.district} onChange={handleInputChange} className="custom-input" />
+            </div>
+            <div className="custom-form-group">
+              <label className="custom-label">STATE</label>
+              <input type="text" name="state" value={formData.state} onChange={handleInputChange} className="custom-input" />
+            </div>
           </div>
 
-          <button type="submit" className="form-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating' : 'Create Account'}
+          <div className="custom-form-row" style={{ marginBottom: '2rem' }}>
+            <div className="custom-form-group">
+              <label className="custom-label">BRANCH / DEPARTMENT</label>
+              <input type="text" name="branch" value={formData.branch} onChange={handleInputChange} className="custom-input" placeholder="e.g. CSE, ECE" required />
+            </div>
+            <div className="custom-form-group">
+              <label className="custom-label">PHONE NUMBER</label>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="custom-input" placeholder="10-digit number" required />
+            </div>
+          </div>
+
+          <button type="submit" className="custom-submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'REGISTERING' : 'REGISTER'}
           </button>
         </form>
+        
+        <div className="modal-footer-text">
+          Already have an account? <span className="modal-link" onClick={onSwitchToLogin}>Login</span>
+        </div>
       </div>
     </div>
   );

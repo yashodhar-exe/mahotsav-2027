@@ -3,6 +3,12 @@ import './App.css';
 import CreateAccount from './components/CreateAccount';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Footer from './components/Footer';
+
+import vignanLogo from './assets/vignan.avif';
+import mahotsavLogo from './assets/mahotsav.avif';
+import twentiethEdition from './assets/20th edition.avif';
+import arcOfBecoming from './assets/the arc of becoming.png';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -26,40 +32,59 @@ function App() {
 
   return (
     <div className="container">
-      <nav className="navbar">
-        <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}>HOME</a>
-        
-        {currentUser ? (
-          <>
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setCurrentPage('profile'); }}>PROFILE</a>
-            <a href="#" className="nav-link" onClick={handleLogout}>LOGOUT</a>
-          </>
-        ) : (
-          <>
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setCurrentPage('login'); }}>LOGIN</a>
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); setCurrentPage('create_account'); }}>CREATE ACCOUNT</a>
-          </>
-        )}
-      </nav>
-      
-      {currentPage === 'home' && (
+      <header className="header">
+        <div className="header-left">
+          <img src={mahotsavLogo} alt="Mahotsav Logo" className="logo mahotsav-logo" />
+          <img src={twentiethEdition} alt="20th Edition" className="logo edition-logo" />
+        </div>
+        <div className="header-right">
+          <img src={vignanLogo} alt="Vignan Logo" className="logo vignan-logo" />
+        </div>
+      </header>
+
+
+
+      {['home', 'login', 'create_account'].includes(currentPage) && (
         <main className="main-content">
-          <h1 className="title">MAHOTSAV</h1>
-          <h2 className="subtitle">2027</h2>
+          <img src={arcOfBecoming} alt="The Arc of Becoming" className="arc-of-becoming" />
+          <button
+            className="register-login-btn"
+            onClick={() => setCurrentPage('login')}
+          >
+            REGISTER/LOGIN
+          </button>
         </main>
       )}
 
       {currentPage === 'create_account' && (
-        <CreateAccount onLogin={handleLogin} />
+        <div className="modal-overlay" onClick={() => setCurrentPage('home')}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <CreateAccount 
+              onLogin={handleLogin} 
+              onSwitchToLogin={() => setCurrentPage('login')} 
+              onClose={() => setCurrentPage('home')}
+            />
+          </div>
+        </div>
       )}
 
       {currentPage === 'login' && (
-        <Login onLogin={handleLogin} />
+        <div className="modal-overlay" onClick={() => setCurrentPage('home')}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <Login 
+              onLogin={handleLogin} 
+              onSwitchToRegister={() => setCurrentPage('create_account')} 
+              onClose={() => setCurrentPage('home')}
+            />
+          </div>
+        </div>
       )}
 
       {currentPage === 'profile' && (
         <Profile user={currentUser} />
       )}
+
+      <Footer />
     </div>
   );
 }
