@@ -1,0 +1,82 @@
+.stats-section {
+  position: absolute;
+  top: 74%;
+  /* Move up to the requested area */
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.stats-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 9vw;
+}
+
+.stat-card {
+  background-color: transparent;
+  padding: 1.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+}
+
+.stat-label {
+  font-family: 'GOT', sans-serif;
+  color: #000;
+  font-size: 2.2rem;
+  text-shadow: 2px 2px 0px #F6D7A7, -1px -1px 0px #F6D7A7;
+  margin-bottom: 0.2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-family: 'GOT', sans-serif;
+  color: #000;
+  font-size: 5.5rem;
+  text-shadow: 3px 3px 0px #F6D7A7, -1px -1px 0px #F6D7A7;
+  line-height: 1;
+}
+
+.stat-suffix {
+  font-family: 'Arial', sans-serif;
+  font-weight: 900;
+  font-size: 4.8rem;
+}
+
+.stats-footer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 45vh;
+}
+
+.shuriken-svg {
+  width: 40px;
+  height: 40px;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stats-slogan {
+  font-family: 'GOT', sans-serif;
+  font-size: 2rem;
+  color: #000;
+  letter-spacing: 2px;
+}

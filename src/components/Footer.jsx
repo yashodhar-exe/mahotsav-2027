@@ -1,11 +1,10 @@
 import React from 'react';
 import './Footer.css';
-import footerBg from '../assets/footer.png';
 import footerLogo from '../assets/footer logo.png';
 
 const Footer = () => {
   return (
-    <footer className="footer-wrapper" style={{ backgroundImage: `url(${footerBg})` }}>
+    <footer className="footer-wrapper">
       <div className="footer-content">
         
         {/* Left Section */}
