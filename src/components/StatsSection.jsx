@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './StatsSection.css';
-import shurikenImage from '../assets/shuriken.png';
+import shurikenImage from '../assets/shuriken.avif';
 
 const statsData = [
   { label: 'CASH PRIZES', target: 15, suffix: 'L' },

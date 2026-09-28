@@ -1,6 +1,6 @@
 import React from 'react';
 import './Loader.css';
-import shurikenImage from '../assets/shuriken.png';
+import shurikenImage from '../assets/shuriken.avif';
 
 const Loader = ({ isLoading }) => {
   return (

@@ -8,10 +8,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/avif" href="/src/assets/mahotsav.avif" />
+  <link rel="preload" as="image" href="/src/assets/2.avif" />
   <title>Mahotsav 2027</title>
+  <style>
+    #initial-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #5a1b16;
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .spinner {
+      width: 80px;
+      height: 80px;
+      animation: fast-spin 1s linear infinite;
+    }
+    @keyframes fast-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
+  <div id="initial-loader">
+    <img src="/src/assets/shuriken.avif" class="spinner" alt="Loading" />
+  </div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

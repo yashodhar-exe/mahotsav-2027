@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import './App.css';
-import CreateAccount from './components/CreateAccount';
-import Login from './components/Login';
-import Profile from './components/Profile';
 import Footer from './components/Footer';
 import StatsSection from './components/StatsSection';
+
+const CreateAccount = lazy(() => import('./components/CreateAccount'));
+const Login = lazy(() => import('./components/Login'));
+const Profile = lazy(() => import('./components/Profile'));
 import Loader from './components/Loader';
 
 import vignanLogo from './assets/vignan.avif';
 import mahotsavLogo from './assets/mahotsav.avif';
 import twentiethEdition from './assets/20th edition.avif';
-import arcOfBecoming from './assets/the arc of becoming.png';
-import bgImage from './assets/2.png';
-import menuIcon from './assets/menu.png';
-import cloud1 from './clouds/IMG_2177.PNG';
-import cloud2 from './clouds/IMG_2178.PNG';
-import cloud3 from './clouds/IMG_2179.PNG';
-import cloud4 from './clouds/IMG_2187.PNG';
+import arcOfBecoming from './assets/the arc of becoming.avif';
+import bgImage from './assets/2.avif';
+import menuIcon from './assets/menu.avif';
+import cloud1 from './clouds/IMG_2177.avif';
+import cloud2 from './clouds/IMG_2178.avif';
+import cloud3 from './clouds/IMG_2179.avif';
+import cloud4 from './clouds/IMG_2187.avif';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -39,6 +40,12 @@ function App() {
     setCurrentPage('home');
   };
 
+  const handleImageLoad = () => {
+    setLoading(false);
+    const initialLoader = document.getElementById('initial-loader');
+    if (initialLoader) initialLoader.remove();
+  };
+
   return (
     <div className="container">
       <Loader isLoading={loading} />
@@ -46,7 +53,7 @@ function App() {
         src={bgImage} 
         alt="background" 
         className="full-bg-image" 
-        onLoad={() => setLoading(false)} 
+        onLoad={handleImageLoad} 
       />
       <div className="overlay-content">
         <div className="clouds-container">
@@ -95,11 +102,13 @@ function App() {
         {currentPage === 'create_account' && (
           <div className="modal-overlay" onClick={() => setCurrentPage('home')}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <CreateAccount
-                onLogin={handleLogin}
-                onSwitchToLogin={() => setCurrentPage('login')}
-                onClose={() => setCurrentPage('home')}
-              />
+              <Suspense fallback={<Loader isLoading={true} />}>
+                <CreateAccount
+                  onLogin={handleLogin}
+                  onSwitchToLogin={() => setCurrentPage('login')}
+                  onClose={() => setCurrentPage('home')}
+                />
+              </Suspense>
             </div>
           </div>
         )}
@@ -107,17 +116,21 @@ function App() {
         {currentPage === 'login' && (
           <div className="modal-overlay" onClick={() => setCurrentPage('home')}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <Login
-                onLogin={handleLogin}
-                onSwitchToRegister={() => setCurrentPage('create_account')}
-                onClose={() => setCurrentPage('home')}
-              />
+              <Suspense fallback={<Loader isLoading={true} />}>
+                <Login
+                  onLogin={handleLogin}
+                  onSwitchToRegister={() => setCurrentPage('create_account')}
+                  onClose={() => setCurrentPage('home')}
+                />
+              </Suspense>
             </div>
           </div>
         )}
 
         {currentPage === 'profile' && (
-          <Profile user={currentUser} />
+          <Suspense fallback={<Loader isLoading={true} />}>
+            <Profile user={currentUser} />
+          </Suspense>
         )}
 
       </div>
