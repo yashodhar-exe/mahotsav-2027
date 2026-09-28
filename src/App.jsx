@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import Footer from './components/Footer';
 import StatsSection from './components/StatsSection';
+import Loader from './components/Loader';
 
 import vignanLogo from './assets/vignan.avif';
 import mahotsavLogo from './assets/mahotsav.avif';
@@ -19,6 +20,7 @@ import cloud4 from './clouds/IMG_2187.PNG';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem('currentUser');
     return saved ? JSON.parse(saved) : null;
@@ -39,7 +41,13 @@ function App() {
 
   return (
     <div className="container">
-      <img src={bgImage} alt="background" className="full-bg-image" />
+      <Loader isLoading={loading} />
+      <img 
+        src={bgImage} 
+        alt="background" 
+        className="full-bg-image" 
+        onLoad={() => setLoading(false)} 
+      />
       <div className="overlay-content">
         <div className="clouds-container">
           <div className="cloud-drop cloud-pos-1"><img src={cloud1} className="cloud-float" alt="cloud" /></div>

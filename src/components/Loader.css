@@ -1,0 +1,42 @@
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #5a1b16;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-hidden {
+  display: none;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loader-spinner {
+  width: 80px;
+  height: 80px;
+  animation: fast-spin 1s linear infinite;
+}
+
+.loader-text {
+  font-family: 'GOT', sans-serif;
+  color: #F6D7A7;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+@keyframes fast-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
